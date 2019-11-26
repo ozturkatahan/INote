@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -16,12 +18,14 @@ namespace INote.API.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<Note> Notes { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("INoteContext", throwIfV1Schema: false)
         {
         }
         
@@ -29,5 +33,8 @@ namespace INote.API.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Note> Notes { get; set; }
+
     }
 }
