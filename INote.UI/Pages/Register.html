@@ -5,9 +5,21 @@
         <div class="card">
             <div class="card-body">
                 <!-- Default form login -->
-                <form name ="frmRegister" class="text-center border border-light p-5" action="#!" ng-submit="register($event)">
+                <form name="frmRegister" class="text-center border border-light p-5" action="#!" ng-submit="register($event)">
 
                     <p class="h4 mb-4">Kayıt Ol</p>
+                    
+                    <div class="alert alert-danger text-left" ng-show="hasErrors()">
+                        <ul>
+                            <li ng-repeat="error in errors"> 
+                            {{ error }}
+                            </li>                           
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-success text-left" ng-show="successMessage">
+                        {{ successMessage }}
+                    </div>
 
                     <!-- Email -->
                     <input ng-model="user.Email" type="email" id="Email" name="Email" class="form-control mb-4" placeholder="E-mail" required />
@@ -16,10 +28,11 @@
                     <input ng-model="user.Password" type="password" id="Password" name="Password" class="form-control mb-4" placeholder="Parola" required />
 
                     <!-- Confirm Password -->
-                    <input ng-model="user.ConfirmPassword" type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control mb-4" placeholder="Parola (Tekrar)" required />                 
+                    <input ng-model="user.ConfirmPassword" type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control mb-4" placeholder="Parola (Tekrar)" required />
 
                     <!-- Register in button -->
                     <button class="btn btn-info btn-block my-4" type="submit">Kayıt Ol</button>
+
 
                     <!-- Register -->
                     <p>
@@ -33,5 +46,3 @@
         </div>
     </div>
 </div>
-
-{{ user }}

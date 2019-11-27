@@ -24,6 +24,8 @@ app.controller("loginCtrl", function ($scope) {
 });
 
 app.controller("registerCtrl", function ($scope, $http) {
+    $scope.errors = [];
+
     $scope.user = {
         Email: "ozturkatahan5@gmail.com",
         Password: "Ankara1.",
@@ -31,15 +33,41 @@ app.controller("registerCtrl", function ($scope, $http) {
     };
 
     $scope.register = function (event) {
+        $scope.errors = [];
+        $scope.successMessage = "";
         event.preventDefault();
         $http.post(apiUrl + "api/Account/Register", $scope.user)
-            .then(function (result) {
-                console.log(result);
-                alert("Kayıt Başarılı");
+            .then(function (response) {
+                $scope.user = {
+                    Email: "",
+                    Password: "",
+                    ConfirmPassword: "",
+                };
+                $scope.successMessage = "Kayıt başarılı. Şimdi giriş sayfasından giriş yapabilirsiniz.";
             }, function (response) {
-                    console.log(response);
-                    alert("Kayıt Başarısız");
-            
+                $scope.errors = getErrors(response.data.ModelState);
             });
     };
+
+    $scope.hasErrors = function () {
+        return $scope.errors.length > 0;
+    };
 });
+
+function getErrors(modelState) {
+
+    var errors = [];
+
+    for (var key in modelState) {
+        for (var i = 0; i < modelState[key].length; i++) {
+            errors.push(modelState[key][i]);
+            // ayni hatayi bastiği durum icin
+            if (modelState[key][i].includes("zaten alınmış")) {
+                break;
+            }
+        }
+       
+    }
+
+    return errors;
+}

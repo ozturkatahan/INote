@@ -4,37 +4,37 @@
         <div class="card">
             <div class="card-body">
                 <!-- Default form login -->
-                <form class="text-center border border-light p-5" action="#!">
+                <form name="frmLogin" class="text-center border border-light p-5" action="#!" ng-submit="login($event)">
 
-                    <p class="h4 mb-4">Sign in</p>
+                    <p class="h4 mb-4">Giriş Yap</p>
 
                     <!-- Email -->
-                    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+                    <input ng-model="user.username" type="email" id="Email" name="Email" class="form-control mb-4" placeholder="E-mail">
 
                     <!-- Password -->
-                    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                    <input ng-model="user.password" type="password" id="Password" name="Password" class="form-control mb-4" placeholder="Parola">
 
                     <div class="d-flex justify-content-around">
                         <div>
                             <!-- Remember me -->
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                                <input ng-model="isRememberMe" type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                                <label class="custom-control-label" for="defaultLoginFormRemember">Beni hatırla</label>
                             </div>
                         </div>
                         <div>
                             <!-- Forgot password -->
-                            <a href="">Forgot password?</a>
+                            <a href="">Parolamı unuttum</a>
                         </div>
                     </div>
 
                     <!-- Sign in button -->
-                    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+                    <button class="btn btn-info btn-block my-4" type="submit">Giriş Yap</button>
 
                     <!-- Register -->
                     <p>
-                        Üyed değil misin?
-                        <a href="">Üye Ol</a>
+                        Henüz üye değil misin?
+                        <a href="">Kayıt Ol</a>
                     </p>
 
                 </form>
@@ -43,3 +43,5 @@
         </div>
     </div>
 </div>
+
+{{ user }} {{ isRememberMe }}
