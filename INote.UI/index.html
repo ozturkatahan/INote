@@ -14,41 +14,13 @@
     <a href="#!register">Kayıt Ol</a>
 
     <hr />
-
-    {{1+2}}
-
     <div ng-view></div>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
 
-    <script>
-        var app = angular.module("myApp", ["ngRoute"]);
 
-        app.config(function ($routeProvider) {
-            $routeProvider.when("/", {
-                templateUrl: "Pages/Main.html",
-                controller: "mainCtrl"
-            }).when("/login", {
-                templateUrl: "Pages/Login.html",
-                controller: "loginCtrl"
-            }).when("/register", {
-                templateUrl: "Pages/Register.html",
-                controller: "registerCtrl"
-            });
-        });
+    <script src="index.js"></script>
 
-        app.controller("mainCtrl", function ($scope){
-            $scope.message = "Ana sayfadasınız."
-        });
-
-        app.controller("loginCtrl", function ($scope){
-            $scope.message = "Giriş yap."
-        });
-
-        app.controller("registerCtrl", function ($scope){
-            $scope.message = "Kayıt ol."
-        });
-    </script>
 </body>
 </html>
 
