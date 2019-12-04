@@ -1,4 +1,4 @@
-﻿var apiUrl = "http://localhost:53861/";
+﻿var apiUrl = "https://inoteapi.kod.fun/";
 
 var app = angular.module("myApp", ["ngRoute"]);
 
@@ -104,6 +104,19 @@ app.controller("mainCtrl", function ($scope, $http, $window, $location) {
     $scope.isLoading = true;
     $scope.notes = [];
 
+    $scope.newNote = function (event) {
+        if (event)
+        e.preventDefault();
+
+        $scope.selectedNote = null;
+
+        $scope.activeNote = {
+            Id: 0,
+            Title: "",
+            Content: ""
+        };
+    };
+
     $scope.loadNotes = function () {
         $http.get(apiUrl + "api/Notes/GetNotes", $scope.requestConfig()).then(
             function (response) {
@@ -119,7 +132,9 @@ app.controller("mainCtrl", function ($scope, $http, $window, $location) {
     };
 
     $scope.showNote = function (event, note) {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
         $scope.activeNote = angular.copy(note);
         $scope.selectedNote = note;
     };
@@ -139,11 +154,37 @@ app.controller("mainCtrl", function ($scope, $http, $window, $location) {
 
                 },
             );
+
+        }
+        else {
+            $http.post(apiUrl + "api/Notes/PostNote/", $scope.activeNote, $scope.requestConfig()).then(
+                function (response) {
+                    $scope.notes.push(response.data);
+                    $scope.showNote(null, response.data);
+                },
+                function (response) {
+
+                },
+            );
         }
 
     };
 
     $scope.deleteNote = function (event) {
+        event.preventDefault();
+
+        if ($scope.selectedNote) {
+            $http.delete(apiUrl + "api/Notes/DeleteNote/" + $scope.selectedNote.Id, $scope.requestConfig()).then(
+                function (response) {
+                    var i = $scope.notes.indexOf($scope.selectedNote);
+                    $scope.notes.splice(i, 1);
+                    $scope.newNote();
+                },
+                function (response) {
+
+                },
+            );
+        }
 
     };
 
@@ -167,8 +208,8 @@ app.controller("loginCtrl", function ($scope, $http, $location, $timeout, $httpP
 
     $scope.user = {
         grant_type: "password",
-        username: "ozturkatahan4@gmail.com",
-        password: "Ankara1."
+        username: "",
+        password: ""
     };
 
     $scope.isRememberMe = false;
@@ -217,9 +258,9 @@ app.controller("registerCtrl", function ($scope, $http) {
     $scope.successMessage = "";
 
     $scope.user = {
-        Email: "ozturkatahan5@gmail.com",
-        Password: "Ankara1.",
-        ConfirmPassword: "Ankara1."
+        Email: "",
+        Password: "",
+        ConfirmPassword: ""
     };
 
     $scope.register = function (event) {

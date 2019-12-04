@@ -6,17 +6,20 @@
         </div>
         Yükleniyor
     </div>
-
 </div>
 
+<div ng-show="!isLoading" class="h-100">
 
-<div ng-show="!isLoading">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">              
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-3">              
 
                 <div class="listgroup mt-4">
-                    <h5 class="list-group-item list-group-item-light bg-light">Yazılarım</h5>
+                    <div class="list-group-item list-group-item-light bg-light d-flex">
+                        <h5 class="d-inline-block align-self-end" >Yazılarım</h5>                      
+                        <a href="#" class="btn btn-success ml-auto"><i class="fas fa-plus"></i></a>                     
+                    </div>
+                  
 
                     <a href="#" class="list-group-item list-group-item-action" ng-repeat="note in notes" ng-click="showNote($event, note)" ng-class="noteActiveClass(note.Id)">
                         {{ note.Title }}
@@ -24,21 +27,23 @@
 
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9 h-100 py-4 pr-4">
 
-                <div class="card mt-4">
-                    <div class="card-body">
+                <div class="card h-100">
+                    <div class="card-body h-100 d-flex flex-column">
                         <div class="form-group">
                             <input ng-model="activeNote.Title" type="text" class="form-control" placeholder="Başlık" />
                         </div>
-                        <div class="form-group">
-                            <textarea ng-model="activeNote.Content" type="text" class="form-control" rows="10" placeholder="Bir şeyler yaz..."></textarea>
+                        <div class="form-group flex-grow-1">
+                            <textarea ng-model="activeNote.Content" type="text" class="form-control h-100" placeholder="Bir şeyler yaz..." style="white-space:nowrap"></textarea>
+                        </div>
+                        <div>
+                            <button ng-click="saveNote($event)" ng-disabled="!activeNote.Title" type="button" class="btn btn-primary ">Kaydet</button>
+                            <button ng-click="deleteNote($event)" ng-disabled="!selectedNote" type="button" class="btn btn-danger">Sil</button>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button ng-click="saveNote($event)" type="button" class="btn btn-primary">Kaydet</button>
-                        <button ng-click="deleteNote($event)" type="button" class="btn btn-danger">Sil</button>
-                    </div>
+                   
+                   
                 </div>
 
             </div>
